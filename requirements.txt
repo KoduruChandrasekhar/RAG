@@ -1,0 +1,13 @@
+sec-edgar-downloader
+beautifulsoup4
+lxml
+chromadb
+sentence-transformers
+groq
+ragas
+datasets
+rank-bm25
+streamlit
+pytest
+langchain-google-genai
+python-dotenv

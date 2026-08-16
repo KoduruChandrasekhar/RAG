@@ -1,0 +1,13 @@
+# --- Python Compiled Files ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Environment & Sensitive Variables ---
+.env
+
+# --- Local Project Data & Vector DB ---
+# This ignores your raw filings, parsed JSONs, and ChromaDB vector embeddings
+data/raw/
+data/parsed/
+data/embeddings/
