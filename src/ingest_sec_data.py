@@ -1,5 +1,4 @@
 import os
-from groq import __name
 from sec_edgar_downloader import Downloader
 from dotenv import load_dotenv 
 

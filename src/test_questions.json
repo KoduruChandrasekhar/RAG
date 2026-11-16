@@ -1,0 +1,248 @@
+[
+  {
+    "question": "What manufacturing risks did Apple identify related to China?",
+    "ground_truth": "Apple identified risks including concentration of manufacturing in China, potential supply chain disruptions from trade tensions, and regulatory changes that could affect operations.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What were Microsoft's main cybersecurity risks in their annual report?",
+    "ground_truth": "Microsoft cited sophisticated cyberattacks on its infrastructure, vulnerabilities in its software products, and nation-state sponsored attacks targeting its cloud services.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How did NVIDIA describe risks related to export controls?",
+    "ground_truth": "NVIDIA identified export control regulations as a significant risk, particularly restrictions on exporting advanced chips to China, which could materially impact data center revenue.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What drove the change in Amazon's operating income?",
+    "ground_truth": "Amazon discussed operating income changes driven by segment performance across North America, International and AWS, along with cost structure and foreign exchange effects.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "How does Alphabet describe competition in its business?",
+    "ground_truth": "Alphabet described intense competition across search, advertising, cloud and AI, from general purpose search engines, vertical search providers, social networks and other technology companies.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does Microsoft say about revenue from its cloud and server products?",
+    "ground_truth": "Microsoft discussed growth in server products and cloud services revenue, driven primarily by Azure and other cloud services.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "How do Microsoft and NVIDIA each describe risks from government export controls?",
+    "ground_truth": "Both describe export controls as a risk. NVIDIA focuses on licensing requirements restricting data center GPU sales to China, while Microsoft frames trade and sanctions regulation as increasing compliance cost and limiting where it can operate.",
+    "expected_tickers": ["MSFT", "NVDA"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does Apple report about gross margin in its MD&A?",
+    "ground_truth": "Apple discussed products and services gross margin percentages and their drivers, including mix, cost savings and foreign exchange.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "How does Amazon describe the risk of intense competition?",
+    "ground_truth": "Amazon described operating in intensely competitive and rapidly evolving segments, facing physical and online retailers, publishers, distributors, web and infrastructure service providers, and companies with greater resources.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does NVIDIA report about data center revenue growth?",
+    "ground_truth": "NVIDIA reported substantial growth in Data Center revenue, driven by demand for its accelerated computing and AI platforms from cloud service providers and consumer internet companies.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "What does Alphabet say about capital expenditures and infrastructure investment?",
+    "ground_truth": "Alphabet discussed increased capital expenditures driven by investment in technical infrastructure, including servers and data centers to support AI and cloud.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+
+  {
+    "question": "What does Apple say about dependence on a small number of component suppliers?",
+    "ground_truth": "Apple described reliance on single or limited sources for many components, and the risk that a supplier's failure to deliver could cause supply shortages or increased costs.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How does Apple describe risks from its retail and online distribution channels?",
+    "ground_truth": "Apple noted risks associated with distribution through carriers, wholesalers and retailers, including reduced orders, credit exposure and channel inventory levels.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What risks does Apple identify around intellectual property and patent litigation?",
+    "ground_truth": "Apple described exposure to intellectual property infringement claims, patent litigation costs, and the possibility of injunctions or licensing requirements.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How did Apple's segment net sales change across its geographic regions?",
+    "ground_truth": "Apple reported net sales by reportable segment including Americas, Europe, Greater China, Japan and Rest of Asia Pacific, with changes driven by product mix and foreign exchange.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "What does Apple disclose about Services revenue performance?",
+    "ground_truth": "Apple described growth in Services net sales driven by advertising, the App Store and cloud services.",
+    "expected_tickers": ["AAPL"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+
+  {
+    "question": "What does Microsoft say about risks from its investment in OpenAI and AI partnerships?",
+    "ground_truth": "Microsoft described risks relating to its AI investments and partnerships, including reputational, competitive, regulatory and liability exposure arising from AI development and deployment.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How does Microsoft describe risks to its datacenter capacity and infrastructure?",
+    "ground_truth": "Microsoft described risks around datacenter availability and capacity, including construction delays, energy and water constraints, and the cost of expanding to meet cloud and AI demand.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does Microsoft disclose about the risk of government regulation and antitrust scrutiny?",
+    "ground_truth": "Microsoft described increasing regulatory scrutiny worldwide, including competition law, data protection and AI regulation, which may increase costs and constrain business practices.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How did Microsoft's operating expenses and margins change year over year?",
+    "ground_truth": "Microsoft discussed changes in cost of revenue, operating expenses and operating margin, driven by cloud infrastructure investment and headcount.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "What does Microsoft report about its Productivity and Business Processes segment?",
+    "ground_truth": "Microsoft reported revenue and operating income for Productivity and Business Processes, including Office commercial and consumer products and LinkedIn.",
+    "expected_tickers": ["MSFT"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+
+  {
+    "question": "What does Alphabet say about risks to its advertising revenue?",
+    "ground_truth": "Alphabet described dependence on advertising revenue and risks from advertiser spending reductions, changes in ad formats, ad blocking and shifts in user behaviour.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How does Alphabet describe legal and regulatory proceedings as a risk?",
+    "ground_truth": "Alphabet described ongoing antitrust, privacy, consumer protection and tax proceedings across jurisdictions that could result in fines, changes to products, or business practice remedies.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What risks does Alphabet identify around artificial intelligence development?",
+    "ground_truth": "Alphabet described risks from developing and deploying AI, including evolving regulation, reputational harm, competitive pressure and potential harmful outputs.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does Alphabet report about Google Cloud revenue and profitability?",
+    "ground_truth": "Alphabet reported growth in Google Cloud revenue from infrastructure and platform services, with improvement in Cloud operating results.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "How did Alphabet's cost of revenues change and what drove it?",
+    "ground_truth": "Alphabet discussed increases in cost of revenues driven by traffic acquisition costs, content acquisition costs and depreciation of technical infrastructure.",
+    "expected_tickers": ["GOOGL"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+
+  {
+    "question": "What does NVIDIA say about dependence on third party foundries and manufacturing partners?",
+    "ground_truth": "NVIDIA described reliance on third party foundries, assembly and test providers, and memory suppliers, with limited ability to secure capacity or respond to supply disruption.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How does NVIDIA describe customer concentration risk?",
+    "ground_truth": "NVIDIA described significant revenue concentration among a small number of direct customers and indirect demand through cloud providers, where loss of a customer could materially affect results.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What risks does NVIDIA identify around inventory and demand forecasting?",
+    "ground_truth": "NVIDIA described difficulty forecasting demand, long manufacturing lead times, and the risk of excess inventory or supply shortages if estimates prove wrong.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does NVIDIA report about its gross margin and the factors affecting it?",
+    "ground_truth": "NVIDIA discussed gross margin changes driven by product mix, data center product costs, inventory provisions and pricing.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "How does NVIDIA describe its liquidity and capital resources?",
+    "ground_truth": "NVIDIA described cash, cash equivalents and marketable securities, cash generated from operations, share repurchases and expected capital requirements.",
+    "expected_tickers": ["NVDA"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+
+  {
+    "question": "What does Amazon say about risks to its international operations?",
+    "ground_truth": "Amazon described risks in international markets including local competition, regulatory restrictions, foreign exchange, and difficulty achieving profitability outside North America.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How does Amazon describe fulfilment and inventory risk?",
+    "ground_truth": "Amazon described risks from optimising fulfilment network capacity, inventory levels, seasonality and the cost of expanding capacity ahead of demand.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What risks does Amazon identify relating to data loss and security incidents?",
+    "ground_truth": "Amazon described the risk of data loss or security incidents affecting customer, employee and business data, and the resulting legal, reputational and operational consequences.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What does Amazon report about AWS segment results?",
+    "ground_truth": "Amazon reported AWS net sales and operating income growth, driven by increased customer usage, partially offset by pricing changes and infrastructure investment.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+  {
+    "question": "How does Amazon describe its cash flows from operations?",
+    "ground_truth": "Amazon discussed operating cash flow and free cash flow, including the effects of net income, working capital, and capital expenditures and finance leases.",
+    "expected_tickers": ["AMZN"],
+    "expected_sections": ["Item_7_MDA"]
+  },
+
+  {
+    "question": "How do Apple and Amazon each describe foreign exchange risk?",
+    "ground_truth": "Both describe exposure to currency fluctuations affecting reported results. Apple notes the strengthening dollar reducing international net sales, while Amazon describes foreign exchange effects on net sales and operating expenses across international segments.",
+    "expected_tickers": ["AAPL", "AMZN"],
+    "expected_sections": ["Item_1A_Risk_Factors", "Item_7_MDA"]
+  },
+  {
+    "question": "How do Alphabet and Microsoft each describe competition in cloud computing?",
+    "ground_truth": "Both describe intense competition in cloud. Alphabet cites competition for Google Cloud from established providers, while Microsoft describes competing with hyperscalers and open-source offerings for Azure.",
+    "expected_tickers": ["GOOGL", "MSFT"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "How do NVIDIA and Amazon each describe reliance on key personnel?",
+    "ground_truth": "Both describe dependence on attracting and retaining highly skilled employees in a competitive market, where loss of key talent could harm operations.",
+    "expected_tickers": ["AMZN", "NVDA"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  },
+  {
+    "question": "What do Apple and Microsoft each say about climate and environmental commitments?",
+    "ground_truth": "Both describe environmental commitments and associated risk. Apple discusses carbon neutrality goals and compliance with environmental regulation, while Microsoft describes carbon negative, water positive and zero waste commitments and the challenge AI infrastructure poses to them.",
+    "expected_tickers": ["AAPL", "MSFT"],
+    "expected_sections": ["Item_1A_Risk_Factors"]
+  }
+]

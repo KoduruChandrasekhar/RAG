@@ -4,6 +4,8 @@ import re
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
+import paths
+
 load_dotenv()
 
 def extract_10k_document(full_submission):
@@ -27,7 +29,53 @@ def clean_html(raw_content):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+def spaced(word):
+    # HTML styling sometimes splits a heading word apart ("RIS K FACTORS" in
+    # Microsoft's filings), so allow optional whitespace between the letters.
+    return r'\s*'.join(re.escape(c) for c in word)
+
+
+SEPARATOR = r'[\.\-\:\s–—]+'
+
+MDA_TITLE = (
+    r"management[’\'s\s]*discussion\s+and\s+analysis"
+    r"(\s+of\s+financial\s+condition\s+and\s+results\s+of\s+operations)?"
+)
+
+# In the table of contents a heading is followed by a page number and the next
+# item: "Risk Factors 16 Item 1B. Unresolved Staff Comments 30 ...".
+TOC_PATTERN = re.compile(r'\d{1,3}\s+Item\s+\d', re.IGNORECASE)
+
+# A cross-reference continues the surrounding sentence rather than opening a
+# section: it is followed by punctuation, a dash, or a phrase such as
+# "of this Form 10-K" or "for a discussion of".
+CROSSREF_LEAD = ('”', '“', '"', '’', ',', ';', '–', '—', ')')
+CROSSREF_DOT_QUOTE = re.compile('^\\s*\\.\\s*[”“"\']')
+CROSSREF_PHRASE = re.compile(
+    r'(?i)^\W{0,3}(of|in|and|to|for|under|see|is|are|our|this)\b.{0,80}?'
+    r'(this\s+(form|annual|report)|part\s+i|10-k|for\s+a\s+discussion|'
+    r'for\s+additional|note\s+\d|included\s+in)'
+)
+
+
+def is_table_of_contents(text, position):
+    return bool(TOC_PATTERN.search(text[position:position + 250]))
+
+
+def is_cross_reference(text, position):
+    window = text[position:position + 200]
+    stripped = window.lstrip()
+    if stripped[:1] in CROSSREF_LEAD:
+        return True
+    if CROSSREF_DOT_QUOTE.match(window):
+        return True
+    return bool(CROSSREF_PHRASE.match(stripped))
+
+
 def find_best_match(text, patterns, after_position=0):
+    # "Item 1A. Risk Factors" occurs many times in a 10-K as a cross-reference
+    # and once in the table of contents, so return the earliest occurrence that
+    # is neither -- that is the real heading.
     all_matches = []
     for pattern in patterns:
         try:
@@ -36,73 +84,75 @@ def find_best_match(text, patterns, after_position=0):
             all_matches.extend(valid)
         except re.error:
             continue
-            
+
     if not all_matches:
         return None
-        
-    return sorted(all_matches, key=lambda m: m.start())[-1]
+
+    all_matches.sort(key=lambda m: m.start())
+
+    for match in all_matches:
+        if is_table_of_contents(text, match.end()):
+            continue
+        if is_cross_reference(text, match.end()):
+            continue
+        return match
+
+    return all_matches[0]
+
 
 def extract_sections(text, ticker, filing_id):
     sections = {}
     min_start = int(len(text) * 0.08)
 
     item_1a_patterns = [
-        r'(?i)item\s+1a[\.\-\:\s]+risk\s+factors',
-        r'(?i)item\s+1a[\u2013\u2014]+risk\s+factors',
-        r'ITEM\s+1A[\.\-\:\s]+RISK\s+FACTORS',
+        r'(?i)item\s+1a' + SEPARATOR + spaced('risk') + r'\s+' + spaced('factors'),
         r'(?m)^\s*RISK\s+FACTORS\s*$',
     ]
-    
+
     item_1a_end_patterns = [
-        r'(?i)item\s+1b[\.\-\:\s\u2013\u2014]+unresolved',
-        r'(?i)item\s+2[\.\-\:\s\u2013\u2014]+propert',
-        r'ITEM\s+1B',
-        r'ITEM\s+2[\.\s]+PROP',
+        r'(?i)item\s+1b' + SEPARATOR + spaced('unresolved'),
+        r'(?i)item\s+1c' + SEPARATOR + spaced('cybersecurity'),
+        r'(?i)item\s+2' + SEPARATOR + r'propert',
     ]
 
     start_match = find_best_match(text, item_1a_patterns, min_start)
     if start_match:
         start = start_match.end()
-        end = min(start + 80000, len(text))
-        
+        end = min(start + 120000, len(text))
+
         end_match = find_best_match(text, item_1a_end_patterns, start + 500)
         if end_match and end_match.start() < end:
             end = end_match.start()
-            
+
         content = text[start:end].strip()
         if len(content.split()) > 200:
             sections["Item_1A_Risk_Factors"] = content
 
     item_7_patterns = [
-        r"(?i)item\s+7[\.\-\:\s]+management[\u2019's\s]+discussion",
-        r"(?i)item\s+7[\u2013\u2014]+management[\u2019's\s]+discussion",
-        r"ITEM\s+7[\.\-\:\s]+MANAGEMENT",
-        r"MANAGEMENT\u2019S\s+DISCUSSION\s+AND\s+ANALYSIS",
-        r"MANAGEMENT'S\s+DISCUSSION\s+AND\s+ANALYSIS",
-        r"(?i)management.s\s+discussion\s+and\s+analysis\s+of",
+        r'(?i)item\s+7' + SEPARATOR + MDA_TITLE,
+        r'(?i)' + MDA_TITLE,
     ]
-    
+
     item_7_end_patterns = [
-        r'(?i)item\s+7a[\.\-\:\s\u2013\u2014]+quantitative',
-        r'(?i)item\s+8[\.\-\:\s\u2013\u2014]+financial\s+stat',
-        r'ITEM\s+7A',
-        r'ITEM\s+8[\.\s]+FINANCIAL',
+        r'(?i)item\s+7a' + SEPARATOR + r'quantitative',
+        r'(?i)item\s+8' + SEPARATOR + spaced('financial') + r'\s+' + spaced('statements'),
     ]
 
     start_match = find_best_match(text, item_7_patterns, min_start)
     if start_match:
         start = start_match.end()
-        end = min(start + 150000, len(text))
-        
+        end = min(start + 200000, len(text))
+
         end_match = find_best_match(text, item_7_end_patterns, start + 500)
         if end_match and end_match.start() < end:
             end = end_match.start()
-            
+
         content = text[start:end].strip()
         if len(content.split()) > 200:
             sections["Item_7_MDA"] = content
 
     return sections
+
 
 def chunk_text(text, chunk_size=150, overlap=50):
     words = text.split()
@@ -115,8 +165,8 @@ def chunk_text(text, chunk_size=150, overlap=50):
     return chunks
 
 def process_all_filings():
-    raw_dir = os.path.join("data", "raw", "sec-edgar-filings")
-    parsed_dir = os.path.join("data", "parsed")
+    raw_dir = paths.FILINGS_DIR
+    parsed_dir = paths.PARSED_DIR
     os.makedirs(parsed_dir, exist_ok=True)
 
     if not os.path.exists(raw_dir):

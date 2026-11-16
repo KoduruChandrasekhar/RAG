@@ -11,3 +11,23 @@ __pycache__/
 data/raw/
 data/parsed/
 data/embeddings/
+
+# --- Test & tooling caches ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Model caches ---
+.cache/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Labelling ---
+# Regenerable from build_label_pool.py; the judgements in
+# src/relevance_labels.json are hand work and ARE committed.
+src/label_pool.json
+label_passages.html

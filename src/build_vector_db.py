@@ -4,17 +4,24 @@ import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from dotenv import load_dotenv
 
+import paths
+
 load_dotenv()
 
 
 def build_vector_db():
-    parsed_dir = os.path.join("data", "parsed")
-    embeddings_dir = os.path.join("data", "embeddings")
+    parsed_dir = paths.PARSED_DIR
+    embeddings_dir = paths.EMBEDDINGS_DIR
 
-    # Check parsed data exists
-    json_files = [f for f in os.listdir(parsed_dir) if f.endswith(".json")]
+    # Check parsed data exists. os.listdir raises before reaching the message
+    # below if the directory is missing, so test for that first.
+    if not os.path.isdir(parsed_dir):
+        print(f"ERROR: {parsed_dir} not found. Run parse_documents.py first.")
+        return
+
+    json_files = sorted(f for f in os.listdir(parsed_dir) if f.endswith(".json"))
     if not json_files:
-        print("ERROR: data/parsed/ is empty. Run parse_documents.py first.")
+        print(f"ERROR: {parsed_dir} is empty. Run parse_documents.py first.")
         return
 
     print(f"Found {len(json_files)} JSON files to process.")
@@ -26,12 +33,12 @@ def build_vector_db():
     # First run downloads it (~130MB), after that it's cached
     print("Loading embedding model (downloads ~130MB on first run)...")
     ef = SentenceTransformerEmbeddingFunction(
-        model_name="BAAI/bge-small-en-v1.5"
+        model_name=paths.EMBEDDING_MODEL
     )
 
     # Delete existing collection if rebuilding from scratch
     try:
-        client.delete_collection("finrag_chunks")
+        client.delete_collection(paths.COLLECTION_NAME)
         print("Deleted existing collection (rebuilding fresh).")
     except Exception:
         pass
@@ -39,7 +46,7 @@ def build_vector_db():
     # Create collection with cosine similarity
     # Cosine similarity measures the angle between vectors — best for text
     collection = client.create_collection(
-        name="finrag_chunks",
+        name=paths.COLLECTION_NAME,
         embedding_function=ef,
         metadata={"hnsw:space": "cosine"}
     )
@@ -82,7 +89,7 @@ def build_vector_db():
 
     print(f"\nVector database built successfully.")
     print(f"Total chunks stored: {collection.count()}")
-    print(f"Location: data/embeddings/")
+    print(f"Location: {embeddings_dir}")
 
 
 if __name__ == "__main__":

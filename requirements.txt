@@ -1,13 +1,30 @@
-sec-edgar-downloader
-beautifulsoup4
-lxml
-chromadb
-sentence-transformers
-groq
-ragas
-datasets
-rank-bm25
-streamlit
-pytest
-langchain-google-genai
-python-dotenv
+# Pinned to the versions this pipeline was verified against. RAGAS in
+# particular renamed its dataset columns in 0.2 and changed its result type, so
+# an unpinned upgrade silently reports every metric as N/A.
+
+# Stage 1 - ingestion
+sec-edgar-downloader==5.1.0
+
+# Stage 2 - parsing
+beautifulsoup4==4.14.3
+lxml==6.1.1
+
+# Stage 3 - embeddings and vector store
+chromadb==1.5.9
+sentence-transformers==5.6.0
+
+# Stage 4 - hybrid retrieval and generation
+rank-bm25==0.2.2
+google-genai==2.18.1
+
+# Stage 5 - evaluation
+ragas==0.4.3
+datasets==5.0.1
+langchain-google-genai==4.3.4
+
+# Shared
+python-dotenv==1.2.2
+pytest==9.1.1
+
+# Not imported anywhere yet - kept for the planned UI.
+streamlit==1.61.1

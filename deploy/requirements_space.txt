@@ -1,0 +1,21 @@
+# Dependencies for the Hugging Face Space.
+#
+# Differs from the project requirements.txt in two ways:
+#   - CPU-only torch, because Spaces hardware has no GPU and the CUDA wheels
+#     are several GB that would never be used.
+#   - The ingest/parse/eval stack is omitted; the Space only serves queries
+#     against the index that ships with it.
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+streamlit==1.41.1
+
+# Retrieval
+chromadb==1.5.9
+sentence-transformers==5.6.0
+rank-bm25==0.2.2
+
+# Generation (optional at runtime: no key means retrieval only)
+google-genai==2.18.1
+
+python-dotenv==1.2.2
